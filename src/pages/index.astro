@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const recipes = await getCollection('recipes');
+recipes.sort((a, b) => a.data.title.localeCompare(b.data.title, 'hr'));
+
+const tagCounts = new Map<string, number>();
+for (const r of recipes) {
+    for (const t of r.data.tags) {
+        tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+    }
+}
+const tags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'hr'));
+---
+
+<Layout title="Recepti">
+    <h1>Recepti</h1>
+    <p class="intro">{recipes.length} recepata.</p>
+
+    <div class="tag-filter" role="toolbar" aria-label="Filtriraj po tagu">
+        <button type="button" class="chip is-active" data-tag="">Svi</button>
+        {
+            tags.map(([tag, count]) => (
+                <button type="button" class="chip" data-tag={tag}>
+                    {tag} <span class="count">{count}</span>
+                </button>
+            ))
+        }
+    </div>
+
+    <ul class="recipe-list" id="recipe-list">
+        {
+            recipes.map((recipe) => {
+                const { title, tags: rTags, servings, calories } = recipe.data;
+                const meta: string[] = [];
+                if (servings) meta.push(`${servings} ${servings < 5 ? 'osobe' : 'osoba'}`);
+                if (calories) meta.push(`~${calories} kcal po porciji`);
+                return (
+                    <li data-tags={rTags.join(' ')}>
+                        <a class="card" href={`${import.meta.env.BASE_URL}${recipe.id}/`}>
+                            <div class="title">{title}</div>
+                            {meta.length > 0 && <div class="meta">{meta.join(' · ')}</div>}
+                            {rTags.length > 0 && (
+                                <div class="card-tags">
+                                    {rTags.map((t) => (
+                                        <span class="tag">{t}</span>
+                                    ))}
+                                </div>
+                            )}
+                        </a>
+                    </li>
+                );
+            })
+        }
+    </ul>
+    <p class="empty" id="empty-state" hidden>Nema recepata za odabrani tag.</p>
+</Layout>
+
+<script>
+    const chips = document.querySelectorAll<HTMLButtonElement>('.tag-filter .chip');
+    const items = document.querySelectorAll<HTMLLIElement>('#recipe-list > li');
+    const empty = document.getElementById('empty-state');
+
+    function applyFilter(tag: string) {
+        let visible = 0;
+        items.forEach((li) => {
+            const tags = (li.dataset.tags ?? '').split(' ').filter(Boolean);
+            const match = !tag || tags.includes(tag);
+            li.hidden = !match;
+            if (match) visible++;
+        });
+        if (empty) empty.hidden = visible !== 0;
+    }
+
+    chips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+            chips.forEach((c) => c.classList.remove('is-active'));
+            chip.classList.add('is-active');
+            applyFilter(chip.dataset.tag ?? '');
+            history.replaceState(
+                null,
+                '',
+                chip.dataset.tag ? `#${chip.dataset.tag}` : location.pathname
+            );
+        });
+    });
+
+    const initial = decodeURIComponent(location.hash.replace('#', ''));
+    if (initial) {
+        const target = [...chips].find((c) => c.dataset.tag === initial);
+        if (target) target.click();
+    }
+</script>
