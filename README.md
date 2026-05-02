@@ -52,8 +52,6 @@ fat: 20
 - ...
 ```
 
-Recipe body stays in Croatian.
-
 ## Tags
 
 `tags` is a string array in frontmatter. The homepage renders one chip per tag (with counts) and
