@@ -1,10 +1,9 @@
 import { defineConfig } from 'astro/config';
 
-// Deployed to GitHub Pages under the /recipes path.
-// Update `site` if you publish under a different user/org.
+// Deployed under https://teodragovic.com/recepti/.
 export default defineConfig({
-    site: 'https://teodragovic.github.io',
-    base: '/recipes',
+    site: 'https://teodragovic.com',
+    base: '/recepti',
     trailingSlash: 'always',
     build: {
         format: 'directory',
