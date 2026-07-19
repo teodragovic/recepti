@@ -6,7 +6,7 @@ calories: 555
 protein: 40
 carbs: 50
 fat: 17
-# image: "./images/pad-thai.jpg"
+image: './images/pad-thai.jpg'
 ---
 
 ## Sastojci

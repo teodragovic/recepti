@@ -6,7 +6,7 @@ calories: 550
 protein: 18
 carbs: 40
 fat: 32
-# image: "./images/hrenovke-lisnato.jpg"
+image: './images/hrenovke-lisnato.jpg'
 ---
 
 ## Sastojci

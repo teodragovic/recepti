@@ -7,7 +7,7 @@ protein: 28
 carbs: 60
 fat: 30
 sourceUrl: 'https://www.pinoycookingrecipes.com/recipe/ham-and-pepperoni-pizza'
-# image: "./images/pizza.jpg"
+image: './images/pizza.jpg'
 ---
 
 ## Sastojci

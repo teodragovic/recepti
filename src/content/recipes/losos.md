@@ -1,5 +1,5 @@
 ---
-title: 'Losos s rižom i grahoricama'
+title: 'Losos'
 tags: [riba]
 servings: 2
 calories: 545

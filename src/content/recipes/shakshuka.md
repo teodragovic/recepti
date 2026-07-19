@@ -7,7 +7,7 @@ protein: 13
 carbs: 15
 fat: 12
 sourceUrl: 'https://downshiftology.com/recipes/shakshuka/'
-# image: "./images/shakshuka.jpg"
+image: './images/shakshuka.jpg'
 ---
 
 ## Sastojci

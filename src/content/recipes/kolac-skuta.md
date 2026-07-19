@@ -6,7 +6,7 @@ calories: 180
 protein: 9
 carbs: 22
 fat: 6
-# image: "./images/kolac-skuta.jpg"
+image: './images/kolac-skuta.jpg'
 ---
 
 ## Sastojci

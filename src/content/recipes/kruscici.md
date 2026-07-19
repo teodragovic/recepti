@@ -7,7 +7,7 @@ protein: 17
 carbs: 50
 fat: 10
 sourceUrl: 'https://www.jutarnji.hr/dobrahrana/recepti/povratak-peciva-od-tri-sastojka-koja-sjajno-prijaju-uz-mnogima-omiljenu-kremastu-salatu-15429705'
-# image: "./images/kruscici.jpg"
+image: './images/kruscici.jpg'
 ---
 
 ## Sastojci

@@ -6,7 +6,7 @@ calories: 550
 protein: 17
 carbs: 83
 fat: 17
-# image: "./images/recipe-name.jpg"   # optional, add later
+image: './images/abc-pasta.jpg'
 sourceUrl: 'https://maminrucak.hr/recepti/tjestenina-u-umaku-od-tikvica-i-abc-sira/'
 ---
 

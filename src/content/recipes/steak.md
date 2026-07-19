@@ -6,7 +6,7 @@ calories: 1100
 protein: 70
 carbs: 85
 fat: 60
-# image: "./images/steak.jpg"
+image: './images/steak.jpg'
 ---
 
 ## Sastojci

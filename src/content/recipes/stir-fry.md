@@ -6,7 +6,7 @@ calories: 445
 protein: 18
 carbs: 60
 fat: 14
-# image: "./images/stir-fry.jpg"
+image: './images/stir-fry.jpg'
 ---
 
 ## Sastojci
