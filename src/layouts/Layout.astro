@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { title, description = 'Recepti' } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -17,10 +18,119 @@ const { title, description = 'Recepti' } = Astro.props;
         <meta name="description" content={description} />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
+
+        <!-- PWA -->
+        <link rel="manifest" href={`${base}manifest.webmanifest`} />
+        <meta name="theme-color" content="#c2410c" />
+        <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+        <link rel="icon" href={`${base}icons/favicon-32.png`} sizes="32x32" />
+        <link rel="apple-touch-icon" href={`${base}icons/apple-touch-icon.png`} />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="Recepti" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     </head>
     <body>
         <main>
             <slot />
         </main>
+
+        <div class="pwa-actions">
+            <button
+                id="wake-toggle"
+                class="pwa-btn"
+                type="button"
+                aria-pressed="false"
+                hidden
+                title="Spriječi gašenje ekrana"
+            >
+                <span class="pwa-btn__icon" aria-hidden="true">☀️</span>
+                <span class="pwa-btn__label">Ekran</span>
+            </button>
+        </div>
+
+        <script>
+            const base = import.meta.env.BASE_URL;
+
+            // --- Service worker registration ---
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker
+                        .register(`${base}sw.js`, { scope: base })
+                        .catch((err) => console.warn('SW registration failed:', err));
+                });
+            }
+
+            // --- Screen wake lock (keep phone awake while cooking) ---
+            // Native Wake Lock API only. Enabled automatically where the browser
+            // allows it; the toggle lets the user turn it off (or on, if the
+            // browser requires a user gesture to acquire the lock).
+            const wakeToggle = document.getElementById('wake-toggle');
+            const OPT_OUT_KEY = 'recepti:wake-opt-out';
+
+            if (wakeToggle && 'wakeLock' in navigator) {
+                let wakeLock: any = null;
+                // Default on, unless the user has explicitly turned it off before.
+                let wantAwake = localStorage.getItem(OPT_OUT_KEY) !== '1';
+
+                wakeToggle.hidden = false;
+
+                function reflect() {
+                    const active = wakeLock !== null;
+                    wakeToggle!.classList.toggle('is-active', active);
+                    wakeToggle!.setAttribute('aria-pressed', String(active));
+                    wakeToggle!.title = active
+                        ? 'Ekran ostaje uključen — dodirni za isključivanje'
+                        : 'Spriječi gašenje ekrana';
+                }
+
+                async function acquire() {
+                    if (wakeLock || !wantAwake || document.visibilityState !== 'visible') return;
+                    try {
+                        wakeLock = await (navigator as any).wakeLock.request('screen');
+                        wakeLock.addEventListener('release', () => {
+                            wakeLock = null;
+                            reflect();
+                        });
+                    } catch {
+                        // e.g. NotAllowedError — needs a user gesture; leave off.
+                        wakeLock = null;
+                    }
+                    reflect();
+                }
+
+                async function release() {
+                    if (wakeLock) {
+                        try {
+                            await wakeLock.release();
+                        } catch {
+                            /* ignore */
+                        }
+                        wakeLock = null;
+                    }
+                    reflect();
+                }
+
+                wakeToggle.addEventListener('click', () => {
+                    wantAwake = !wakeLock;
+                    if (wantAwake) {
+                        localStorage.removeItem(OPT_OUT_KEY);
+                        acquire();
+                    } else {
+                        localStorage.setItem(OPT_OUT_KEY, '1');
+                        release();
+                    }
+                });
+
+                // Re-acquire when returning to the tab (locks drop on hide).
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'visible' && wantAwake) acquire();
+                });
+
+                // Try to enable automatically on load.
+                acquire();
+                reflect();
+            }
+        </script>
     </body>
 </html>

@@ -225,3 +225,55 @@ p {
     color: var(--muted);
     margin-top: 0.5rem;
 }
+
+.pwa-actions {
+    position: fixed;
+    right: max(0.75rem, env(safe-area-inset-right));
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    z-index: 50;
+}
+
+.pwa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font: inherit;
+    font-size: 0.8rem;
+    line-height: 1;
+    padding: 0.5rem 0.75rem;
+    background: var(--card);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+        border-color 120ms,
+        background 120ms,
+        color 120ms;
+}
+
+.pwa-btn:hover {
+    border-color: var(--accent);
+}
+
+.pwa-btn__icon {
+    font-size: 0.95rem;
+}
+
+#wake-toggle.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+@media print {
+    .pwa-actions {
+        display: none;
+    }
+}
