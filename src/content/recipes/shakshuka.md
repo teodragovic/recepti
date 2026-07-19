@@ -1,6 +1,6 @@
 ---
 title: 'Shakshuka'
-tags: [vegetarijansko, dorucak]
+tags: [vege, dorucak]
 servings: 3
 calories: 225
 protein: 13

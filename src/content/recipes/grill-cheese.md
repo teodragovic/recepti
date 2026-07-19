@@ -1,12 +1,12 @@
 ---
 title: 'Grill cheese'
-tags: [vegetarijansko]
+tags: [vege]
 servings: 3
 calories: 460
 protein: 25
 carbs: 35
 fat: 25
-# image: "./images/grill-cheese.jpg"
+image: './images/grill-cheese.jpg'
 ---
 
 ## Sastojci

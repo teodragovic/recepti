@@ -1,6 +1,6 @@
 ---
 title: 'Stir fry'
-tags: [vegetarijansko]
+tags: [vege]
 servings: 3
 calories: 445
 protein: 18

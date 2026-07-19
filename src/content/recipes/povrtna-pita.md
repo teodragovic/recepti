@@ -1,6 +1,6 @@
 ---
 title: 'Povrtna pita'
-tags: [pita, vegetarijansko]
+tags: [pita, vege]
 servings: 6
 calories: 330
 protein: 20

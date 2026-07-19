@@ -6,7 +6,7 @@ calories: 430
 protein: 18
 carbs: 70
 fat: 6
-# image: "./images/sushi.jpg"
+image: './images/sushi.jpg'
 ---
 
 ## Sastojci

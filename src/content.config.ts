@@ -1,13 +1,15 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const stringOrNumber = z.union([z.string(), z.number()]);
+
 const recipes = defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/recipes' }),
     schema: ({ image }) =>
         z.object({
             title: z.string(),
             tags: z.array(z.string()).default([]),
-            servings: z.number().optional(),
+            servings: stringOrNumber.optional(),
             calories: z.number().optional(),
             protein: z.number().optional(),
             carbs: z.number().optional(),

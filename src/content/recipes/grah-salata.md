@@ -1,6 +1,6 @@
 ---
 title: 'Grah salata'
-tags: [salata, vegetarijansko]
+tags: [salata, vege]
 servings: 4
 calories: 200
 protein: 10

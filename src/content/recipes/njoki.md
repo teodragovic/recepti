@@ -1,6 +1,6 @@
 ---
 title: 'Njoki'
-tags: [pasta, vegetarijansko]
+tags: [pasta, vege]
 servings: 3
 calories: 340
 protein: 17

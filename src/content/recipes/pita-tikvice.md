@@ -1,6 +1,6 @@
 ---
 title: 'Pita s tikvicama'
-tags: [pita, vegetarijansko]
+tags: [pita, vege]
 servings: 8
 calories: 370
 protein: 14

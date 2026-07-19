@@ -1,6 +1,6 @@
 ---
 title: 'Đuveđ'
-tags: [vegetarijansko]
+tags: [vege]
 servings: 3
 calories: 305
 protein: 15

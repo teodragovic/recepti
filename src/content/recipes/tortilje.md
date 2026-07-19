@@ -1,6 +1,6 @@
 ---
 title: 'Tortilje'
-tags: [vegetarijansko]
+tags: [vege]
 servings: 3
 calories: 850
 protein: 30
