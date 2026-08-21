@@ -22,14 +22,14 @@ Tips: ako je pile iz frižera, otapati puna 24h.
 
 ## Priprema
 
-- upaliti pećnicu
+- upaliti pećnicu na 200°C
 - oguliti mrkve
 - krumpir samo oprati i prerezati napola i osušiti
 - premazati pleh uljem
 - krumpir staviti u padelu i začiniti uljem, soli i začinima ali ne previše i izmiješati
 - prebaciti mrkve i krumpir u pleh
-- pile malo oprati i posušiti ubrusom
-- izbockati nožem da iscuri višak masnoće
+- pile dobro posušiti ubrusom
+- izbockati donji dio nožem da iscuri višak masnoće
 - dobro premazati mixom začina — dosta soli
 - položiti pile na povrće
 - staviti u pećnicu na 200°C na 1.5h (1h za svakih 1kg)

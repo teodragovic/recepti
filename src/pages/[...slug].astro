@@ -15,70 +15,73 @@ const { recipe } = Astro.props;
 const { Content } = await render(recipe);
 const { title, tags, servings, calories, protein, carbs, fat, image, sourceUrl } = recipe.data;
 
+const base = import.meta.env.BASE_URL;
 const hasMacros = calories || protein || carbs || fat;
 ---
 
-<Layout title={`${title} — Recepti`}>
-    <a class="back" href={import.meta.env.BASE_URL}>← Svi recepti</a>
-    <h1>{title}</h1>
+<Layout title={`${title} — Recepti`} current={recipe.id}>
+    <article class="recipe">
+        <div class="page-head">
+            <a class="back" href={base}>← Svi recepti</a>
+            <h1>{title}</h1>
+            {
+                servings && (
+                    <p class="intro">
+                        Za {servings} {Number(servings) < 5 ? 'osobe' : 'osoba'}
+                    </p>
+                )
+            }
+            {
+                tags.length > 0 && (
+                    <div class="card-tags">
+                        {tags.map((t) => (
+                            <span class="tag">{t}</span>
+                        ))}
+                    </div>
+                )
+            }
+        </div>
 
-    {
-        servings && (
-            <p class="intro">
-                Za {servings} {servings < 5 ? 'osobe' : 'osoba'}
-            </p>
-        )
-    }
+        {image && <Image src={image} alt={title} class="recipe-image" />}
 
-    {
-        tags.length > 0 && (
-            <div class="card-tags">
-                {tags.map((t) => (
-                    <a class="tag" href={`${import.meta.env.BASE_URL}#${t}`}>
-                        {t}
-                    </a>
-                ))}
-            </div>
-        )
-    }
+        {
+            hasMacros && (
+                <div class="macros">
+                    {calories && (
+                        <span>
+                            <strong>{calories}</strong> kcal
+                        </span>
+                    )}
+                    {protein && (
+                        <span>
+                            <strong>{protein}g</strong> <span class="muted">P</span>
+                        </span>
+                    )}
+                    {carbs && (
+                        <span>
+                            <strong>{carbs}g</strong> <span class="muted">C</span>
+                        </span>
+                    )}
+                    {fat && (
+                        <span>
+                            <strong>{fat}g</strong> <span class="muted">F</span>
+                        </span>
+                    )}
+                    <span class="muted">po porciji (procjena)</span>
+                </div>
+            )
+        }
 
-    {image && <Image src={image} alt={title} class="recipe-image" />}
+        <div class="prose">
+            <Content />
+        </div>
 
-    {
-        hasMacros && (
-            <div class="macros">
-                {calories && (
-                    <span>
-                        <strong>{calories}</strong> kcal
-                    </span>
-                )}
-                {protein && (
-                    <span>
-                        <strong>{protein}g</strong> <span class="muted">P</span>
-                    </span>
-                )}
-                {carbs && (
-                    <span>
-                        <strong>{carbs}g</strong> <span class="muted">C</span>
-                    </span>
-                )}
-                {fat && (
-                    <span>
-                        <strong>{fat}g</strong> <span class="muted">F</span>
-                    </span>
-                )}
-                <span class="muted">po porciji (procjena)</span>
-            </div>
-        )
-    }
-
-    <Content />
-
-    {
-        sourceUrl && (
-            <a class="source" href={sourceUrl} target="_blank" rel="noopener">
-                Izvor: {sourceUrl}
-            </a>
-        )
-    }
+        {
+            sourceUrl && (
+                <a class="source" href={sourceUrl} target="_blank" rel="noopener">
+                    Izvor: {sourceUrl}
+                </a>
+            )
+        }
+    </article>
 </Layout>

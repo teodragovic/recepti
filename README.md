@@ -28,7 +28,7 @@ npm run format:check  # check only
 
 ## Adding a recipe
 
-Create a new `.md` file in `src/content/recepti/` with this frontmatter:
+Create a new `.md` file in `src/content/recipes/` with this frontmatter:
 
 ```md
 ---
@@ -52,19 +52,26 @@ fat: 20
 - ...
 ```
 
+## Navigation
+
+Every page has a fixed top bar with a hamburger button — on mobile _and_ desktop — that opens
+`src/components/Sidebar.astro`, an off-canvas drawer listing every recipe title alphabetically —
+names only, no tags. The entry for the recipe being viewed is highlighted; `Layout.astro` takes a
+`current` prop (the recipe slug) to mark it. The drawer closes on the ✕ button, the backdrop, or
+`Escape`. Clicking a recipe navigates to the same page its tile on the homepage links to.
+
 ## Tags
 
-`tags` is a string array in frontmatter. The homepage renders one chip per tag (with counts) and
-filters the list client-side. Tags are also rendered on each recipe page and link back to the
-filtered homepage via `#tag`.
+`tags` is a string array in frontmatter, used purely as metadata — there is no tag cloud and no
+filtering. Tags render as chips on the homepage tiles, as a subtitle in the sidebar entries, and
+under the title on each recipe page.
 
-Existing tags: `meso`, `riba`, `vegetarijansko`, `pasta`, `pizza`, `sushi`, `pita`, `salata`,
-`juha`, `desert`, `pecivo`, `dorucak`. Add new ones freely — they appear in the filter
-automatically. Use lowercase, no diacritics.
+Existing tags: `meso`, `riba`, `vege`, `pasta`, `pizza`, `sushi`, `pita`, `salata`, `juha`,
+`desert`, `pecivo`, `dorucak`. Add new ones freely. Use lowercase, no diacritics.
 
 ## Images
 
-Drop image files into `src/content/recepti/images/` (or anywhere under `src/content/recepti/`) and
+Drop image files into `src/content/recipes/images/` (or anywhere under `src/content/recipes/`) and
 reference them with `image: ./images/file.jpg`. The field is optional — leave it commented out until
 an image is ready.
 

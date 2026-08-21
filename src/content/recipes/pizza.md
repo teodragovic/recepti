@@ -30,7 +30,6 @@ image: './images/pizza.jpg'
 - Belje slanina ~100g
 - origano
 - bosiljak pasta
-- BEZ kukuruza
 
 ## Priprema
 

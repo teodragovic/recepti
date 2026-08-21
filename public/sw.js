@@ -9,7 +9,7 @@
  */
 
 const SCOPE_PATH = new URL(self.registration.scope).pathname; // e.g. "/recepti/"
-const SHELL_VERSION = 'v1';
+const SHELL_VERSION = 'v2';
 const SHELL_CACHE = `recepti-shell-${SHELL_VERSION}`;
 const RUNTIME_CACHE = 'recepti-runtime'; // stable across updates → cached forever
 

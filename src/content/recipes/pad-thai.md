@@ -16,7 +16,7 @@ image: './images/pad-thai.jpg'
 - 1 luk (crveni luk)
 - 1 tofu blok ~150g
 - smrznute kozice ~500g
-- 3 jaja (probat 4)
+- 3 jaja
 - opcionalno: klice ~1/2 tegle, kupus
 - šaka kikirikija
 - 1 mladi luk
@@ -30,7 +30,8 @@ image: './images/pad-thai.jpg'
 - smrviti kikiriki
 - iscijediti umak u zdjelicu i dodati malo vode
 - kratko prokuhati kozice
-- u drugi lonac staviti kuhati nudle 4 min. (baciti u kipuću vodu bez soli)
+- dok se kozice kuhaju zagrijat vodu za nudle bez soli
+- staviti kuhati nudle 4 min.
 - na ulje baciti kozice i tofu i luk dok se kuhaju nudle
 - nudle ocijediti i baciti u wok i dodati umak i klice soje (ili kupus)
 - ugasiti vatru i dodati kajganu

@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+    /** Slug of the recipe currently being viewed, if any. */
+    current?: string;
+}
+
+const { current } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const recipes = await getCollection('recipes');
+recipes.sort((a, b) => a.data.title.localeCompare(b.data.title, 'hr'));
+---
+
+<div class="nav-backdrop" id="nav-backdrop"></div>
+
+<aside class="nav-drawer" id="nav-drawer" aria-label="Svi recepti">
+    <div class="nav-drawer__head">
+        <span class="nav-drawer__title">Svi recepti</span>
+        <button class="nav-drawer__close" id="nav-close" type="button" aria-label="Zatvori meni">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20">
+                <path
+                    d="M6 6l12 12M18 6L6 18"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"></path>
+            </svg>
+        </button>
+    </div>
+
+    <nav class="nav-drawer__body">
+        <a class:list={['nav-link', 'nav-link--home', { 'is-current': !current }]} href={base}>
+            Početna
+        </a>
+        <ul class="nav-list">
+            {
+                recipes.map((recipe) => (
+                    <li>
+                        <a
+                            class:list={['nav-link', { 'is-current': recipe.id === current }]}
+                            href={`${base}${recipe.id}/`}
+                            aria-current={recipe.id === current ? 'page' : undefined}
+                        >
+                            {recipe.data.title}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
+
+    <p class="nav-drawer__foot">{recipes.length} recepata</p>
+</aside>

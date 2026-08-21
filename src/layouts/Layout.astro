@@ -1,12 +1,15 @@
 ---
 import '../styles/global.css';
+import Sidebar from '../components/Sidebar.astro';
 
 interface Props {
     title: string;
     description?: string;
+    /** Slug of the recipe currently being viewed, if any. */
+    current?: string;
 }
 
-const { title, description = 'Recepti' } = Astro.props;
+const { title, description = 'Recepti', current } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -31,6 +34,24 @@ const base = import.meta.env.BASE_URL;
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     </head>
     <body>
+        <header class="topbar">
+            <div class="topbar__inner">
+                <button
+                    class="hamburger"
+                    id="nav-toggle"
+                    type="button"
+                    aria-label="Otvori meni"
+                    aria-expanded="false"
+                    aria-controls="nav-drawer"
+                >
+                    <span class="hamburger__bars" aria-hidden="true"></span>
+                </button>
+                <a class="topbar__brand" href={base}>Recepti</a>
+            </div>
+        </header>
+
+        <Sidebar current={current} />
+
         <main>
             <slot />
         </main>
@@ -51,6 +72,48 @@ const base = import.meta.env.BASE_URL;
 
         <script>
             const base = import.meta.env.BASE_URL;
+
+            // --- Nav drawer (hamburger on every viewport) ---
+            const navToggle = document.getElementById('nav-toggle');
+            const navDrawer = document.getElementById('nav-drawer');
+            const navBackdrop = document.getElementById('nav-backdrop');
+            const navClose = document.getElementById('nav-close');
+
+            if (navToggle && navDrawer) {
+                // Everything outside the drawer, made inert while it is open so
+                // Tab stays inside the menu.
+                const behind = document.querySelectorAll<HTMLElement>(
+                    '.topbar, main, .pwa-actions'
+                );
+
+                const setOpen = (open: boolean) => {
+                    document.body.classList.toggle('nav-open', open);
+                    navToggle.setAttribute('aria-expanded', String(open));
+                    navToggle.setAttribute('aria-label', open ? 'Zatvori meni' : 'Otvori meni');
+                    // Lift inert before moving focus back to the toggle.
+                    behind.forEach((el) => (el.inert = open));
+                    if (open) {
+                        const first = navDrawer.querySelector<HTMLElement>(
+                            '.nav-link.is-current, .nav-link'
+                        );
+                        first?.focus({ preventScroll: true });
+                        first?.scrollIntoView({ block: 'center' });
+                    } else {
+                        navToggle.focus({ preventScroll: true });
+                    }
+                };
+
+                navToggle.addEventListener('click', () =>
+                    setOpen(!document.body.classList.contains('nav-open'))
+                );
+                navClose?.addEventListener('click', () => setOpen(false));
+                navBackdrop?.addEventListener('click', () => setOpen(false));
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
+                        setOpen(false);
+                    }
+                });
+            }
 
             // --- Service worker registration ---
             if ('serviceWorker' in navigator) {

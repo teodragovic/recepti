@@ -13,11 +13,11 @@ sourceUrl: 'https://maminrucak.hr/recepti/rizoto-s-lososom/'
 ## Sastojci
 
 - losos (Lidl)
-- rižoto riža (1 čašica na 2 lososa)
+- rižoto riža (arborio) (2 čašice)
 - luk (1 po pakiranju lososa)
 - tikvica ili mrkva
 - češnjak
-- temeljac
+- temeljac (7-8 deci)
 - sol, papar
 - maslac
 - opcionalno: paprika, mladi luk, parmezan
